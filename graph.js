@@ -66,15 +66,40 @@ class Graph {
         }
       }
     }
-
     return [seen];
    }
 
   /** traverse graph with BDS and returns array of Node values */
-  breadthFirstSearch(start) { }
+  breadthFirstSearch(start, seen=new Set([start])) {
+
+    let nodeList = [start.value];
+    for (let neighbor of start.adjacent){
+      if (!seen.has(neighbor)){
+        seen.add(neighbor);
+        return nodeList.concat(this.breadthFirstSearch(neighbor),seen)
+      }
+    }
+
+
+    // const queue = [start];
+    // const seen = [start];
+
+    // while (queue.length){
+    //   const current = queue.shift();
+    //   for (const neighbor of current.adjacent){
+    //     if(!seen.includes(neighbor)){
+    //       queue.push(neighbor);
+    //       seen.push(neighbor);
+    //     }
+    //   }
+    // }
+    // return seen.map(n => n.value);
+   }
 
   /** find the distance of the shortest path from the start node to the end node */
-  distanceOfShortestPath(start, end) { }
+  distanceOfShortestPath(start, end) {
+
+   }
 }
 
 module.exports = { Graph, Node }
